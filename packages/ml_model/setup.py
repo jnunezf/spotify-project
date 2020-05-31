@@ -16,7 +16,7 @@ EMAIL = 'jnunezf@gmail.com'
 AUTHOR = 'Javier Nunez'
 REQUIRES_PYTHON = '>=3.6.0'
 
-
+# nuevo comentario
 # What packages are required for this module to be executed?
 def list_reqs(fname='requirements.txt'):
     with open(fname) as fd:
