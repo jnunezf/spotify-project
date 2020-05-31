@@ -11,7 +11,7 @@ from setuptools import find_packages, setup
 # Package meta-data.
 NAME = 'ml_model'
 DESCRIPTION = 'Train and deploy ML model.'
-URL = 'github.com/jnunezf'
+URL = 'https://github.com/jnunezf'
 EMAIL = 'jnunezf@gmail.com'
 AUTHOR = 'Javier Nunez'
 REQUIRES_PYTHON = '>=3.6.0'
