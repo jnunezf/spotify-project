@@ -1,60 +1,93 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.2
+  working_directory: ~/project
+
+prepare_venv: &prepare_venv
+  run:
+    name: Create virtual environment
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
 jobs:
   test_ml_model:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run:
-          name: Running ml_model tests
+          name: 1. Install requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
-            pip install --upgrade pip
             pip install -r packages/ml_model/requirements.txt
+      - run:
+          name: 2. Train ml_model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/ml_model python3 packages/ml_model/ml_model/train_pipeline.py
+      - run:
+          name: 3. Run ml_model tests
+          command: |
+            . venv/bin/activate
             py.test -vv packages/ml_model/tests
 
   test_ml_api:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
-          name: Running ml_api tests
+          name: Runnning tests
           command: |
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
+
   train_and_upload_ml_model:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run:
-          name: Setup environment
+          name: 1. Install requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
             pip install -r packages/ml_model/requirements.txt
       - run:
-          name: Publish model in Gemfury
+          name: 2. Train ml_model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/ml_model python3 packages/ml_model/ml_model/train_pipeline.py
+      - run:
+          name: 3. Publish ml_model to Gemfury
           command: |
             . venv/bin/activate
             chmod +x ./scripts/publish_model.sh
-            PYTHONPATH=./packages/ml_model python3 packages/ml_model/ml_model/train_pipeline.py
             ./scripts/publish_model.sh ./packages/ml_model/
+
 workflows:
   version: 2
   test-all:
     jobs:
       - test_ml_model
       - test_ml_api
-      - train_and_upload_ml_model
-      - test_ml_api:
+      - train_and_upload_ml_model:
           requires:
-            - train_and_upload_ml_model
+            - test_ml_model
+            - test_ml_api
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
