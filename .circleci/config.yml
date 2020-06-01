@@ -40,7 +40,6 @@ jobs:
           command: |
             virtualenv venv
             . venv/bin/activate
-            pip install --upgrade pip
             pip install -r packages/ml_model/requirements.txt
       - run:
           name: Publish model in Gemfury
