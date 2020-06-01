@@ -1,6 +1,7 @@
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
 # api
 flask==1.0.2
 
-# local ml_model package
-# update with your local path
--e "C:\Users\Javier\Documents\udemy\deployment-ml-models\Repository\spotify\packages\ml_model"
+#Install from Gemfury
+regression-model==0.1.0
