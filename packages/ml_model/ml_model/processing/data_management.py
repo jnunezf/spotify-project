@@ -8,6 +8,10 @@ from ml_model import __version__ as _version
 
 _logger = logging.getLogger(__name__)
 
+def load_dataset(*, filename: str) -> pd.DataFrame:
+    _data = pd.read_csv(f"{config.DATASET_DIR}/{file_name}")
+    return _data
+
 def load_pipeline(*, filename: str) -> Pipeline:
 
     filepath = config.TRAINED_MODEL_DIR / filename
