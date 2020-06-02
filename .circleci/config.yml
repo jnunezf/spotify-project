@@ -101,7 +101,9 @@ workflows:
     jobs:
       - test_ml_model
       - test_ml_api
+      - differential_tests
       - train_and_upload_ml_model:
           requires:
             - test_ml_model
             - test_ml_api
+            - differential_tests
