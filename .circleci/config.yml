@@ -81,13 +81,9 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - test_ml_model
+      - test_regression_model
       - test_ml_api
-      - train_and_upload_ml_model:
+      - train_and_upload_regression_model
+      - test_ml_api:
           requires:
-            - test_ml_model
-            - test_ml_api
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
+            - train_and_upload_regression_model
