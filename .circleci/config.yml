@@ -82,7 +82,8 @@ workflows:
   test-all:
     jobs:
       - test_ml_model
-      - train_and_upload_ml_model
-      - test_ml_api:
+      - test_ml_api
+      - train_and_upload_ml_model:
           requires:
-            - train_and_upload_ml_model
+            - test_ml_model
+            - test_ml_api
