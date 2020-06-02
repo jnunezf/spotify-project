@@ -106,10 +106,16 @@ venv.bak/
 # pycharm
 .idea/
 
-# pickle files
-#* .pkl
 
 # datafiles
 packages/ml_model/ml_model/datasets/*.csv
 packages/ml_model/ml_model/datasets/*.zip
 packages/ml_model/ml_model/datasets/*.txt
+
+*.csv
+
+# all logs
+logs/
+
+# trained models (will be created in CI)
+packages/ml_model/ml_model/trained_models/*.pkl
