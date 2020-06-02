@@ -49,7 +49,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
-            PYTHONPATH=. py.test -vv packages/ml_api/tests  -m "not differential"
+            PYTHONPATH=./packages/ml_api py.test -vv packages/ml_api/tests -m "not differential"
       - save_cache:
           key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
           paths:
