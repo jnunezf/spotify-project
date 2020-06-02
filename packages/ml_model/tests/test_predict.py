@@ -13,7 +13,7 @@ def test_make_single_prediction():
     subject = make_prediction(input_json=single_test_json)
 
     assert subject is not None
-    assert isinstance(subject.get('predictions')[0], int)
+    assert isinstance(subject.get('predictions')[0], np.integer)
     assert subject.get('predictions')[0] >= 0
     assert subject.get('predictions')[0] < 7
 
