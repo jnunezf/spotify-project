@@ -20,7 +20,8 @@ def capture_previous_data(
     input_data_df = pd.DataFrame(input_data)
 
     input_data_df.to_csv(
-        f'{config.PACKAGE_ROOT.parent}/ml_model/ml_model/datasets/{input_data_file}'
+        #f'{config.PACKAGE_ROOT.parent}/ml_model/ml_model/datasets/{input_data_file}'
+        f'{config.PACKAGE_ROOT}/{input_data_file}'
     )
 
     input_data_json = input_data_df.to_json(orient='records')
@@ -29,7 +30,8 @@ def capture_previous_data(
     output_data_df = pd.DataFrame(output_data)
 
     output_data_df.to_csv(
-        f'{config.PACKAGE_ROOT.parent}/ml_model/ml_model/datasets/{output_data_file}'
+        #f'{config.PACKAGE_ROOT.parent}/ml_model/ml_model/datasets/{output_data_file}'
+        f'{config.PACKAGE_ROOT}/{output_data_file}'
     )
 
 if __name__ == '__main__':
