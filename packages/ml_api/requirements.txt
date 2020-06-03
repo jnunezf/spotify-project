@@ -4,4 +4,4 @@
 flask==1.0.2
 
 #Install from Gemfury
-ml-model==0.1.0
+ml-model==1.0.0

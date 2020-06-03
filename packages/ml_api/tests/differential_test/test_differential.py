@@ -4,7 +4,6 @@ from ml_model.config import config
 from ml_model.predict import make_prediction
 from ml_model.processing.data_management import load_dataset
 
-@pytest.mark.skip
 @pytest.mark.differential
 def test_model_prediction_differential(
         *,
