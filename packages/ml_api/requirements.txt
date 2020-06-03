@@ -5,3 +5,6 @@ flask==1.0.2
 
 #Install from Gemfury
 ml-model==1.0.0
+
+# Deployment
+gunicorn==19.9.0
