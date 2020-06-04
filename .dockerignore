@@ -1,0 +1,9 @@
+jupyter_notebooks*
+*/env*
+*/venv*
+.circleci*
+packages/ml_model
+*.env
+*.log
+.git
+.gitignore
