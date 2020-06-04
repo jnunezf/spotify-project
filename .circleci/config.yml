@@ -121,7 +121,7 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_to_heroku
+      - deploy_to_heroku:
         requires:
           - train_and_upload_ml_model
           filters:
