@@ -123,6 +123,35 @@ jobs:
           name: Release to Heroku
           command: |
             heroku container:release web --app $HEROKU_APP_NAME
+  train_and_upload_neural_network_model:
+    docker:
+      - image: circleci/python:3.6.4-stretch
+    working_directory: ~/project
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: 1. Install requirements
+          command: |
+            . venv/bin/activate
+            pip install -r packages/neural_network_model/requirements.txt
+      - run:
+          name: 2. Fetch Training data - 2GB
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/fetch_kaggle_large_dataset.sh
+            ./scripts/fetch_kaggle_large_dataset.sh
+      - run:
+          name: 3. Train neural network model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/neural_network_model python3 packages/neural_network_model/neural_network_model/train_pipeline.py
+      - run:
+          name: Publish neural network model to Gemfury
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/publish_model.sh
+            ./scripts/publish_model.sh ./packages/neural_network_model/
 
 workflows:
   version: 2
@@ -154,3 +183,8 @@ workflows:
             branches:
               only:
                 - master
+      - train_and_upload_neural_network_model:
+          requires:
+            - test_regression_model
+            - test_ml_api
+            - section_9_differential_tests
