@@ -60,7 +60,7 @@ reduce_lr = ReduceLROnPlateau(monitor='acc',
                               patience=2,
                               verbose=1,
                               mode='max',
-                              min_lr=0.00001)
+                              min_lr=0.01)
 
 callbacks_list = [checkpoint, reduce_lr]
 
