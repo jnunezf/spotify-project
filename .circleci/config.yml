@@ -185,6 +185,6 @@ workflows:
                 - master
       - train_and_upload_neural_network_model:
           requires:
-            - test_regression_model
+            - test_ml_model
             - test_ml_api
-            - section_9_differential_tests
+            - differential_tests
