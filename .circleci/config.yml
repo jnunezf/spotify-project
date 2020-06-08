@@ -159,12 +159,12 @@ workflows:
     jobs:
       - test_ml_model
       #- test_ml_api
-      - differential_tests
+      #- differential_tests
       - train_and_upload_ml_model:
           requires:
             - test_ml_model
           #  - test_ml_api
-            - differential_tests
+          #  - differential_tests
           filters:
             branches:
               only:
@@ -187,4 +187,4 @@ workflows:
           requires:
             - test_ml_model
             #- test_ml_api
-            - differential_tests
+            #- differential_tests
