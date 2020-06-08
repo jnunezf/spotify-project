@@ -43,7 +43,8 @@ def test_svc_ep_return_svc(flask_test_client):
     response_version = response_json['version']
     assert len(response_json['predictions']) == 50
     assert response_version == _version
-
+    
+@pytest.mark.skip
 def test_classifier_endpoint_returns_prediction(flask_test_client):
     # Given
     # Load the test data from the neural_network_model package
