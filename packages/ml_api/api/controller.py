@@ -58,7 +58,7 @@ def svc():
 
         return response
 
-@prediction_app.route('/predict/classifier', methods=['POST'])
+@ml_app.route('/predict/classifier', methods=['POST'])
 def predict_image():
     if request.method == 'POST':
         # Step 1: check if the post request has the file part
