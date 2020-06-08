@@ -169,6 +169,11 @@ workflows:
             branches:
               only:
                 - master
+      - train_and_upload_neural_network_model:
+          requires:
+            - test_ml_model
+            #- test_ml_api
+            #- differential_tests              
       # - deploy_to_heroku:
       #     requires:
       #       - train_and_upload_ml_model
@@ -179,12 +184,8 @@ workflows:
       - build_and_push_to_heroku_docker:
           requires:
             - train_and_upload_ml_model
+            - train_and_upload_neural_network_model
           filters:
             branches:
               only:
                 - master
-      - train_and_upload_neural_network_model:
-          requires:
-            - test_ml_model
-            #- test_ml_api
-            #- differential_tests
